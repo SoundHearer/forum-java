@@ -21,14 +21,12 @@ import pub.developers.forum.api.service.ConfigApiService;
 import pub.developers.forum.api.service.FaqApiService;
 import pub.developers.forum.common.enums.ConfigTypeEn;
 import pub.developers.forum.common.support.SafesUtil;
-import pub.developers.forum.common.support.GlobalViewConfig;
+import pub.developers.forum.portal.support.GlobalViewConfig;
 import pub.developers.forum.portal.support.WebConst;
 import pub.developers.forum.portal.request.IndexRequest;
 import pub.developers.forum.portal.support.WebUtil;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 /**
@@ -62,16 +60,11 @@ public class IndexController {
     private ConfigApiService configApiService;
 
     @GetMapping
-    public String index(IndexRequest request, Model model, HttpServletRequest servletRequest, HttpServletResponse response) {
-        if (!ObjectUtils.isEmpty(request.getToken())) {
-            WebUtil.cookieAddSid(response, request.getToken());
-        }
-
+    public String index(IndexRequest request, Model model) {
         request.setType(ObjectUtils.isEmpty(request.getType()) ? ALL_TYPE_NAME : request.getType());
 
         model.addAttribute("currentDomain", WebConst.DOMAIN_ARTICLE);
         model.addAttribute("toast", request.getToast());
-        model.addAttribute("token", request.getToken());
 
         ResultModel<List<ConfigResponse>> configResult = configApiService.queryAvailable(Sets.newHashSet(ConfigTypeEn.HOME_CAROUSEL.getValue()
                 , ConfigTypeEn.SIDEBAR_CAROUSEL.getValue()));

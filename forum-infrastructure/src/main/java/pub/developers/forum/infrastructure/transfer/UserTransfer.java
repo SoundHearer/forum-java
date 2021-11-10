@@ -1,9 +1,10 @@
 package pub.developers.forum.infrastructure.transfer;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import org.springframework.util.ObjectUtils;
-import pub.developers.forum.common.enums.*;
+import pub.developers.forum.common.enums.FollowedTypeEn;
+import pub.developers.forum.common.enums.UserRoleEn;
+import pub.developers.forum.common.enums.UserSexEn;
+import pub.developers.forum.common.enums.UserStateEn;
 import pub.developers.forum.common.support.SafesUtil;
 import pub.developers.forum.domain.entity.Follow;
 import pub.developers.forum.domain.entity.User;
@@ -11,9 +12,7 @@ import pub.developers.forum.infrastructure.dal.dataobject.UserDO;
 import pub.developers.forum.infrastructure.dal.dataobject.UserFollowDO;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Qiangqiang.Bian
@@ -21,8 +20,6 @@ import java.util.Map;
  * @desc
  **/
 public class UserTransfer {
-
-    private static final String EXT_KET_GITHUB_USER = "githubUser";
 
     public static Follow toFollow(UserFollowDO userFollowDO) {
         Follow follow = Follow.builder()
@@ -43,7 +40,6 @@ public class UserTransfer {
         }
 
         UserDO userDO = UserDO.builder()
-                .ext("{}")
                 .avatar(user.getAvatar())
                 .email(user.getEmail())
                 .nickname(user.getNickname())
@@ -51,15 +47,6 @@ public class UserTransfer {
                 .signature(user.getSignature())
                 .lastLoginTime(user.getLastLoginTime())
                 .build();
-
-        if (!ObjectUtils.isEmpty(user.getSource())) {
-            userDO.setSource(user.getSource().getValue());
-        }
-        if (!ObjectUtils.isEmpty(user.getGithubUser())) {
-            Map<String, Object> ext = new HashMap<>();
-            ext.put(EXT_KET_GITHUB_USER, user.getGithubUser());
-            userDO.setExt(JSON.toJSONString(ext));
-        }
         if (!ObjectUtils.isEmpty(user.getRole())) {
             userDO.setRole(user.getRole().getValue());
         }
@@ -83,7 +70,6 @@ public class UserTransfer {
 
         User user = User.builder()
                 .avatar(userDO.getAvatar())
-                .source(UserSourceEn.getEntity(userDO.getSource()))
                 .state(UserStateEn.getEntity(userDO.getState()))
                 .email(userDO.getEmail())
                 .nickname(userDO.getNickname())
@@ -93,11 +79,6 @@ public class UserTransfer {
                 .signature(userDO.getSignature())
                 .lastLoginTime(userDO.getLastLoginTime())
                 .build();
-
-        if (!ObjectUtils.isEmpty(userDO.getExt())) {
-            JSONObject ext = JSON.parseObject(userDO.getExt());
-            user.setGithubUser(ext.getJSONObject(EXT_KET_GITHUB_USER));
-        }
 
         user.setId(userDO.getId());
         user.setCreateAt(userDO.getCreateAt());

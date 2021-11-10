@@ -2,11 +2,11 @@
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 
 <head th:fragment="head(title, links, scripts)">
-    <title th:replace="${title}" th:text="${globalConfig.websiteName}">开发者客栈</title>
+    <title th:replace="${title}" th:text="${globalConfig.websiteName}">云原生社区</title>
     <meta name="baidu-site-verification" content="code-x9mzArq1EX" />
     <!-- Required meta tags -->
-    <meta name="keywords" content="开发者客栈，开发者社区，开源社区，spring boot开源社区，Java开源社区，社区文章，社区问答" />
-    <meta name="description" content="开发者客栈是基于spring boot开发的一套Java版开源社区，提供写文章，提问题等功能，也可以帮助开发者免费部署供个人学习使用，商业用途需收费。" />
+    <meta name="keywords" content="云原生社区，Knative中文社区，Kubernetes社区，Knative社区，容器技术社区，云原生开源社区" />
+    <meta name="description" content="云原生社区是专业的云原生技术分享和讨论社区，汇聚国内最权威的Knative中文技术资料，最全面的云原生技术，Kubernetes、容器技术" />
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
     <link rel="icon" th:href="${globalConfig.websiteFaviconIconUrl}" href="https://static.developers.pub/favicon.ico">
@@ -327,21 +327,6 @@
         }
         .message-block {
             margin-right: 10px;
-        }
-        .third-oauth-login-box::before {
-            content: '三方账号登录';
-            position: absolute;
-            left: 50%;
-            bottom: 55px;
-            font-size: 10px;
-            transform: translateX(-50%);
-            -webkit-transform: translate(-50%,-50%);
-            padding: 0 10px;
-            background-color: #fff;
-        }
-        .third-oauth-login-box {
-            display: block;
-            text-align: center;
         }
 
         /* 设备适配样式 */

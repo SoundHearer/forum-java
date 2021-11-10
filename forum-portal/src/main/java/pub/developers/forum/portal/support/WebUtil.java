@@ -19,11 +19,11 @@ import pub.developers.forum.api.response.config.ConfigResponse;
 import pub.developers.forum.api.response.faq.FaqInfoResponse;
 import pub.developers.forum.api.response.faq.FaqUserPageResponse;
 import pub.developers.forum.api.response.tag.TagQueryResponse;
+import pub.developers.forum.api.service.ConfigApiService;
 import pub.developers.forum.api.service.TagApiService;
 import pub.developers.forum.api.vo.PostsVO;
 import pub.developers.forum.common.constant.Constant;
 import pub.developers.forum.common.enums.ConfigTypeEn;
-import pub.developers.forum.common.support.GlobalViewConfig;
 import pub.developers.forum.common.support.SafesUtil;
 import pub.developers.forum.common.support.StringUtil;
 
@@ -56,23 +56,13 @@ public class WebUtil {
         Cookie[] cookies = request.getCookies();
         if (!ObjectUtils.isEmpty(cookies)) {
             for (Cookie cookie : cookies) {
-                if (WebConst.COOKIE_SID_KEY.equals(cookie.getName()) && !ObjectUtils.isEmpty(cookie.getValue())) {
+                if (WebConst.COOKIE_SID_KEY.equals(cookie.getName())) {
                     return cookie.getValue();
                 }
             }
         }
 
-        String headerSid = request.getHeader(Constant.REQUEST_HEADER_TOKEN_KEY);
-        if (!ObjectUtils.isEmpty(headerSid)) {
-            return headerSid;
-        }
-
-        String querySid = request.getParameter(Constant.REQUEST_QUERY_TOKEN_KEY);
-        if (!ObjectUtils.isEmpty(querySid)) {
-            return querySid;
-        }
-
-        return null;
+        return request.getHeader(Constant.REQUEST_HEADER_TOKEN_KEY);
     }
 
     public static void cookieAddSid(HttpServletResponse response, String sid) {

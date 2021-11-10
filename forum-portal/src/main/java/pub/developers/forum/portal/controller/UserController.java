@@ -19,7 +19,6 @@ import pub.developers.forum.api.service.ArticleApiService;
 import pub.developers.forum.api.service.FaqApiService;
 import pub.developers.forum.api.service.UserApiService;
 import pub.developers.forum.common.constant.Constant;
-import pub.developers.forum.common.support.GlobalViewConfig;
 import pub.developers.forum.common.support.SafesUtil;
 import pub.developers.forum.portal.request.UserRequest;
 import pub.developers.forum.portal.support.*;
@@ -29,6 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * @author Qiangqiang.Bian

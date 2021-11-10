@@ -1,7 +1,9 @@
 package pub.developers.forum.infrastructure.file;
 
 import com.qiniu.common.QiniuException;
+import com.qiniu.common.Zone;
 import com.qiniu.http.Response;
+import com.qiniu.storage.Configuration;
 import com.qiniu.storage.UploadManager;
 import com.qiniu.util.Auth;
 import lombok.Data;
@@ -34,7 +36,8 @@ public class QiNiuFileServiceImpl implements FileService {
 
     @Override
     public String uploadImg(byte[] base64, String key) {
-        UploadManager uploadManager = new UploadManager();
+        Configuration cfg = new Configuration(Zone.zoneAs0());
+        UploadManager uploadManager = new UploadManager(cfg);
         try {
             String token = Auth.create(accessKey, secretKey).uploadToken(bucketName, key);
             CheckUtil.isEmpty(token, ErrorCodeEn.FILE_UPLOAD_FAIL);

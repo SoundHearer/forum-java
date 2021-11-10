@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "custom-config.mail.smtp.host",
+      "type": "java.lang.String",
+      "description": "Description for custom-config.mail.smtp.host."
+  }
+] }
